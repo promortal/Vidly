@@ -1,13 +1,23 @@
 ﻿@model Vidly.Models.Customer
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
 }
 
 
 @if (Model != null)
 {
 <h2>@Model.Name</h2>
+<ul>
+	<li>Membership Type: @Model.MembershipType.Name</li>
+	@if (Model.BirthDate.HasValue)
+	{
+		<li>
+			@Model.BirthDate.Value.ToString("d")
+		</li>
+	}
+</ul>
+	@Model.MembershipType.Name
 } else {
 <p>No customer with that id exists.</p>
 }
