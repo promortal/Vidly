@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.7</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -181,11 +182,24 @@
     <Compile Include="Migrations\201803022211307_InitialMigration.Designer.cs">
       <DependentUpon>201803022211307_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803032333046_AddIsSubscribedToCustomer.cs" />
+    <Compile Include="Migrations\201803032333046_AddIsSubscribedToCustomer.Designer.cs">
+      <DependentUpon>201803032333046_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803032336316_AddMembershipType.cs" />
+    <Compile Include="Migrations\201803032336316_AddMembershipType.Designer.cs">
+      <DependentUpon>201803032336316_AddMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803032345187_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\201803032345187_PopulateMembershipTypes.Designer.cs">
+      <DependentUpon>201803032345187_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -313,6 +327,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803022211307_InitialMigration.resx">
       <DependentUpon>201803022211307_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803032333046_AddIsSubscribedToCustomer.resx">
+      <DependentUpon>201803032333046_AddIsSubscribedToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803032336316_AddMembershipType.resx">
+      <DependentUpon>201803032336316_AddMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803032345187_PopulateMembershipTypes.resx">
+      <DependentUpon>201803032345187_PopulateMembershipTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
