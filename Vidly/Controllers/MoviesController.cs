@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,6 +30,61 @@ namespace Vidly.Controllers
 			var movies = _context.Movies.Include(m=>m.Genre).ToList();
 
 			return View(movies);
+		}
+
+		public ActionResult Add()
+		{
+			var genres = _context.Genres.ToList();
+			var viewModel = new MovieFormViewModel
+			{
+				Genres = genres
+			};
+			return View("MovieForm", viewModel);
+		}
+
+		public ActionResult Edit(int id)
+		{
+			var movie = _context.Movies.Single(m => m.Id == id);
+			if (movie == null) return new HttpNotFoundResult();
+			var genres = _context.Genres.ToList();
+
+			var viewModel = new MovieFormViewModel
+			{
+				Movie = movie,
+				Genres = genres
+			};
+			return View("MovieForm", viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult Save(Movie movie)
+		{
+			if (movie.Id == 0)
+			{
+				movie.DateAdded = DateTime.Now;
+				_context.Movies.Add(movie);
+
+			} else
+			{
+				var movieFromDb = _context.Movies.SingleOrDefault(m => m.Id == movie.Id);
+				if (movieFromDb != null)
+				{
+					movieFromDb.GenreId = movie.GenreId;
+					movieFromDb.Name = movie.Name;
+					movieFromDb.NumberInStock = movie.NumberInStock;
+					movieFromDb.ReleaseDate = movie.ReleaseDate;
+				}
+
+			}
+			try
+			{
+				_context.SaveChanges();
+			} catch (DbEntityValidationException e)
+			{
+				Console.WriteLine(e);
+			}
+			
+			return RedirectToAction("Index", "Movies");
 		}
 
 		public ActionResult Details(int id)
@@ -63,11 +119,6 @@ namespace Vidly.Controllers
 		public ActionResult ByReleaseYear(int year, int month)
 		{
 			return Content(year + "/" + month);
-		}
-
-		public ActionResult Edit(int movieId)
-		{
-			return Content("id=" + movieId);
 		}
 
 		public ActionResult IndexOLD(int? pageIndex, string sortBy)
